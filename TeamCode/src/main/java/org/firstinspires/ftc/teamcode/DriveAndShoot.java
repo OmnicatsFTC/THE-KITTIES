@@ -63,7 +63,7 @@ public class DriveAndShoot extends LinearOpMode {
     @Override
     public void runOpMode() {
 
-        leftFrontDrive  = hardwareMap.get(DcMotor.class, "leftFront_");
+        leftFrontDrive  = hardwareMap.get(DcMotor.class, "leftFront");
         leftBackDrive  = hardwareMap.get(DcMotor.class, "leftBack");
         rightFrontDrive = hardwareMap.get(DcMotor.class, "rightFront");
         rightBackDrive = hardwareMap.get(DcMotor.class, "rightBack");
