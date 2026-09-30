@@ -30,11 +30,8 @@ boolean intakeFlag = false;
     @Override
     public void loop() {
         if(gamepad1.right_trigger>0){
-            shooterFlag = !shooterFlag;
-        }
-        if (shooterFlag){
-            shooter.setPower(-1);
 
+            shooter.setPower(-1);
         }
         else{
             shooter.setPower(0);
