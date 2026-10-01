@@ -22,8 +22,8 @@ public class shooter {
 
         }
 
-        public void spin(double buttonPressed) {
-            if (buttonPressed > 0) {
+        public void shoot(boolean buttonPressed2) {
+            if (buttonPressed2) {
                 shooter.setPower(1.0);   // full speed; lower it or use -1.0 to reverse
 
             } else {
