@@ -78,6 +78,11 @@ public class BasicDrive{
                 leftBackPower /= max;
                 rightBackPower /= max;
             }
+
+            leftFrontDrive.setPower(leftFrontPower);
+            rightFrontDrive.setPower(rightFrontPower);
+            leftBackDrive.setPower(leftBackPower);
+            rightBackDrive.setPower(rightBackPower);
         }
 
             // This is test code:
