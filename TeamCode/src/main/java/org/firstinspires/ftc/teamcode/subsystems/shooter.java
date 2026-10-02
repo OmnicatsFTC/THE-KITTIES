@@ -24,8 +24,7 @@ public class shooter {
 
         public void shoot(boolean buttonPressed2) {
             if (buttonPressed2) {
-                shooter.setPower(1.0);   // full speed; lower it or use -1.0 to reverse
-
+                shooter.setPower(-0.605);
             } else {
                 shooter.setPower(0);
 
