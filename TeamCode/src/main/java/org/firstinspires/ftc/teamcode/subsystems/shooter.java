@@ -24,7 +24,7 @@ public class shooter {
 
         public void shoot(boolean buttonPressed2) {
             if (buttonPressed2) {
-                shooter.setPower(-0.605);
+                shooter.setPower(-0.615);
             } else {
                 shooter.setPower(0);
 

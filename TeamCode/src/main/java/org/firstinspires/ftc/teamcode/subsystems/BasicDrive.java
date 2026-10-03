@@ -2,6 +2,7 @@
 
 package org.firstinspires.ftc.teamcode.subsystems;
 
+import com.qualcomm.hardware.limelightvision.Limelight3A;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -22,6 +23,7 @@ public class BasicDrive{
     private DcMotor leftBackDrive = null;
     private DcMotor rightFrontDrive = null;
     private DcMotor rightBackDrive = null;
+    private Limelight3A limelight;
 
     
     public BasicDrive(HardwareMap hardwareMap) {
@@ -30,6 +32,7 @@ public class BasicDrive{
         leftBackDrive = hardwareMap.get(DcMotor.class, "leftBack");
         rightFrontDrive = hardwareMap.get(DcMotor.class, "rightFront");
         rightBackDrive = hardwareMap.get(DcMotor.class, "rightBack");
+
 
         leftFrontDrive.setDirection(DcMotor.Direction.REVERSE);
         leftBackDrive.setDirection(DcMotor.Direction.REVERSE);
@@ -83,7 +86,15 @@ public class BasicDrive{
             rightFrontDrive.setPower(rightFrontPower);
             leftBackDrive.setPower(leftBackPower);
             rightBackDrive.setPower(rightBackPower);
+
+
+
+
         }
+
+
+
+
 
             // This is test code:
             //
