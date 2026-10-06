@@ -22,14 +22,19 @@ public class shooter {
 
         }
 
-        public void shoot(boolean buttonPressed2) {
-            if (buttonPressed2) {
-                shooter.setPower(-0.605);
-            } else {
-                shooter.setPower(0);
+    private boolean on = false;   // add this near your other fields at the top of the class
 
-            }
+    public void toggle() {
+        on = !on;
+    }
+
+    public void update() {
+        if (on) {
+            shooter.setPower(-0.79);
+        } else {
+            shooter.setPower(0);
         }
+    }
     }
 
 

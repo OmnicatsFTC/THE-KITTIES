@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.subsystems.shooter;
 @TeleOp (name = "normal", group = "testing")
 
 public class normal extends LinearOpMode {
-
+    boolean lastTriggerDown = false;
 
     @Override
    public void runOpMode() {
@@ -28,13 +28,21 @@ public class normal extends LinearOpMode {
            double turn = gamepad1.right_stick_x;
 
            boolean buttonPressed = gamepad1.aWasPressed();
-           boolean buttonPressed2 = gamepad1.left_trigger > 0;
+           boolean buttonPressed3 = gamepad1.bWasPressed();
 
-           shoot.shoot(buttonPressed2);
+           boolean triggerDown = gamepad1.left_trigger > 0.5;
+           if (triggerDown && !lastTriggerDown) {
+               shoot.toggle();
+           }
+           lastTriggerDown = triggerDown;
+
+           shoot.update();
 
            ii.spin(buttonPressed);
 
            drive.drive(forward, strafe, turn);
+
+
        }
 
    }
