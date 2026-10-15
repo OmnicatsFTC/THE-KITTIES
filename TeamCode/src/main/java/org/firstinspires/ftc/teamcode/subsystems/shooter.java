@@ -22,7 +22,7 @@ public class shooter {
 
         }
 
-    private boolean on = false;   // add this near your other fields at the top of the class
+    private boolean on = false;
 
     public void toggle() {
         on = !on;
