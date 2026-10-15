@@ -152,10 +152,7 @@ public class DriveAndShoot extends LinearOpMode {
 
 
             if(gamepad1.right_trigger>0){
-                shooterFlag = !shooterFlag;
-            }
-            if (shooterFlag){
-                shooter.setPower(-1);
+                shooter.setPower(-0.8);
 
             }
             else{
