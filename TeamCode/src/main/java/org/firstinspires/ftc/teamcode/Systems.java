@@ -1,20 +1,23 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.acmerobotics.roadrunner.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.subsystems.BasicDrive;
+import org.firstinspires.ftc.teamcode.MecanumDrive;
 import org.firstinspires.ftc.teamcode.subsystems.intakeIndexer;
 import org.firstinspires.ftc.teamcode.subsystems.shooter;
 
-@TeleOp (name = "normal", group = "testing")
+@TeleOp (name = "Systems", group = "testing")
 
-public class normal extends LinearOpMode {
+public class Systems extends LinearOpMode {
     boolean lastTriggerDown = false;
 
     @Override
    public void runOpMode() {
-       BasicDrive drive = new BasicDrive(hardwareMap);
+        MecanumDrive mecanumDrive = new MecanumDrive(hardwareMap, new Pose2d(0, 0, 0));
+        BasicDrive basicDrive = new BasicDrive(mecanumDrive);
 
        intakeIndexer ii = new intakeIndexer(hardwareMap);
 
@@ -23,6 +26,7 @@ public class normal extends LinearOpMode {
        waitForStart();
 
        while (opModeIsActive()) {
+           basicDrive.update();
            double forward = -gamepad1.left_stick_y;
            double strafe = gamepad1.left_stick_x;
            double turn = gamepad1.right_stick_x;
@@ -40,8 +44,10 @@ public class normal extends LinearOpMode {
 
            ii.spin(buttonPressed);
 
-           drive.drive(forward, strafe, turn);
-
+           basicDrive.drive(forward, strafe, turn);
+           telemetry.addData("x", basicDrive.getPose().position.x);
+           telemetry.addData("y", basicDrive.getPose().position.y);
+           telemetry.update();
 
        }
 
