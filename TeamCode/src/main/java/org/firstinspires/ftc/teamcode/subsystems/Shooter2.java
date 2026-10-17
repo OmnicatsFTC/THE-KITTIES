@@ -19,7 +19,7 @@ public class Shooter2 {
 
         // Motors on opposite sides of a shooter usually spin opposite directions,
         // so reverse one. Swap which one is reversed if the wheels spin the wrong way.
-        leftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         rightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
 
         leftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);

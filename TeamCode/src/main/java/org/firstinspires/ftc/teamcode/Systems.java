@@ -9,6 +9,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Shooter2;
 import org.firstinspires.ftc.teamcode.subsystems.intakeIndexer;
 import org.firstinspires.ftc.teamcode.subsystems.limelight;
 import org.firstinspires.ftc.teamcode.subsystems.servo;
+import org.firstinspires.ftc.teamcode.subsystems.shooterGood;
 
 @TeleOp(name = "Systems", group = "testing")
 public class Systems extends LinearOpMode {
@@ -18,9 +19,9 @@ public class Systems extends LinearOpMode {
         MecanumDrive mecanumDrive = new MecanumDrive(hardwareMap, new Pose2d(0, 0, 0));
         BasicDrive basicDrive = new BasicDrive(mecanumDrive);
         intakeIndexer ii = new intakeIndexer(hardwareMap);
-        Shooter2 shooter = new Shooter2(hardwareMap);
+        shooterGood shooter = new shooterGood(hardwareMap);
         servo servo1 = new servo(hardwareMap);
-        limelight limelight1 = new limelight(hardwareMap);
+        //limelight limelight1 = new limelight(hardwareMap);
 
         boolean lastTrigger = false;
 
@@ -34,27 +35,32 @@ public class Systems extends LinearOpMode {
             boolean intakeButton = gamepad1.rightBumperWasPressed();
             boolean servoButton = gamepad1.leftBumperWasPressed();
             boolean buttonPressed3 = gamepad1.yWasPressed();
+            boolean buttonPressed = gamepad1.rightTriggerWasPressed();
 
-            boolean trigger = gamepad1.right_trigger > 0.5;
-            if (trigger && !lastTrigger) {
-                shooter.toggle();
-            }
-            lastTrigger = trigger;
+
 
             basicDrive.update();
             basicDrive.drive(forward, strafe, turn);
-            shooter.update();
+            shooter.spin(buttonPressed);
             ii.spin(intakeButton);
             servo1.spinServo(servoButton);
-            limelight1.getAprilTag(buttonPressed3, turn);
+            //limelight1.getAprilTag(buttonPressed3, turn);
+
+            if (gamepad1.dpadDownWasPressed()){
+                shooter.decrement();
+                shooter.spin(true);
+            }
+
+            if (gamepad1.dpadUpWasPressed()){
+                shooter.increment();
+                shooter.setShooterPower(shooter.getPower());
+            }
 
 
-            telemetry.addData("Shooter on", shooter.isOn());
-            telemetry.addData("Trigger", gamepad1.right_trigger);
-            telemetry.addData("L power", shooter.getLeftPower());
-            telemetry.addData("R power", shooter.getRightPower());
+
             telemetry.addData("x", basicDrive.getPose().position.x);
             telemetry.addData("y", basicDrive.getPose().position.y);
+            telemetry.addData("shooter speed", shooter.getPower());
             telemetry.update();
         }
     }
