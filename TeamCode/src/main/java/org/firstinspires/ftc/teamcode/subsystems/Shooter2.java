@@ -35,4 +35,7 @@ public class Shooter2 {
         leftMotor.setPower(power);
         rightMotor.setPower(power);
     }
+    public boolean isOn() { return on; }
+    public double getLeftPower() { return leftMotor.getPower(); }
+    public double getRightPower() { return rightMotor.getPower(); }
 }

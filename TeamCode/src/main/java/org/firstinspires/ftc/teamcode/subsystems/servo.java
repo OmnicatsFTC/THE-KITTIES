@@ -10,7 +10,6 @@ public class servo {
     boolean servoFlag;
 
     public servo(HardwareMap hardwareMap) {
-        // These names must match your Driver Station configuration exactly
         servo = hardwareMap.get(CRServo.class, "servo");
 
 
@@ -21,7 +20,7 @@ public class servo {
             servoFlag = !servoFlag;
 
             if (servoFlag) {
-                servo.setPower(1.0);   // full speed; lower it or use -1.0 to reverse
+                servo.setPower(1.0);
 
             } else {
                 servo.setPower(0);

@@ -44,7 +44,11 @@ public class Systems extends LinearOpMode {
             ii.spin(intakeButton);
             servo1.spinServo(servoButton);
 
-            telemetry.addData("Shooter", "running");
+
+            telemetry.addData("Shooter on", shooter.isOn());
+            telemetry.addData("Trigger", gamepad1.right_trigger);
+            telemetry.addData("L power", shooter.getLeftPower());
+            telemetry.addData("R power", shooter.getRightPower());
             telemetry.addData("x", basicDrive.getPose().position.x);
             telemetry.addData("y", basicDrive.getPose().position.y);
             telemetry.update();
