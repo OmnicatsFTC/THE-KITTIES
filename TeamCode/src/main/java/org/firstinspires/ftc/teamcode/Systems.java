@@ -5,71 +5,54 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.subsystems.BasicDrive;
-import org.firstinspires.ftc.teamcode.MecanumDrive;
 import org.firstinspires.ftc.teamcode.subsystems.Shooter2;
 import org.firstinspires.ftc.teamcode.subsystems.intakeIndexer;
 import org.firstinspires.ftc.teamcode.subsystems.servo;
-import org.firstinspires.ftc.teamcode.subsystems.shooter;
 
-@TeleOp (name = "Systems", group = "testing")
-
+@TeleOp(name = "Systems", group = "testing")
 public class Systems extends LinearOpMode {
-    boolean lastTriggerDown = false;
 
     @Override
-   public void runOpMode() {
+    public void runOpMode() {
+        // Create everything ONCE, before the loop
         MecanumDrive mecanumDrive = new MecanumDrive(hardwareMap, new Pose2d(0, 0, 0));
         BasicDrive basicDrive = new BasicDrive(mecanumDrive);
+        intakeIndexer ii = new intakeIndexer(hardwareMap);
+        Shooter2 shooter = new Shooter2(hardwareMap);
+        servo servo1 = new servo(hardwareMap);
 
-       intakeIndexer ii = new intakeIndexer(hardwareMap);
+        boolean lastTrigger = false;
 
+        waitForStart();
 
+        while (opModeIsActive()) {
+            // Read inputs fresh every cycle
+            double forward = -gamepad1.left_stick_y;
+            double strafe = gamepad1.left_stick_x;
+            double turn = gamepad1.right_stick_x;
 
-       waitForStart();
+            boolean intakeButton = gamepad1.rightBumperWasPressed();
+            boolean servoButton = gamepad1.leftBumperWasPressed();
 
-       while (opModeIsActive()) {
-           basicDrive.update();
-           double forward = -gamepad1.left_stick_y;
-           double strafe = gamepad1.left_stick_x;
-           double turn = gamepad1.right_stick_x;
+            // Shooter toggle on trigger press (not hold)
+            boolean trigger = gamepad1.right_trigger > 0.5;
+            if (trigger && !lastTrigger) {
+                shooter.toggle();
+            }
+            lastTrigger = trigger;
 
-           boolean buttonPressed = gamepad1.rightBumperWasPressed();
-           boolean buttonPressed3 = gamepad1.bWasPressed();
-           boolean buttonServo = gamepad1.leftBumperWasPressed();
-           Shooter2 shooter = new Shooter2(hardwareMap);
+            // Update subsystems
+            basicDrive.update();
+            basicDrive.drive(forward, strafe, turn);
+            shooter.update();
+            ii.spin(intakeButton);
+            servo1.spinServo(servoButton);
 
-           boolean lastA = false;
-
-           waitForStart();
-
-           while (opModeIsActive()) {
-               // Toggle only on the moment A is pressed, not while it's held
-               boolean a = gamepad1.right_trigger > 0.5;
-               if (a && !lastA) {
-                   shooter.toggle();
-               }
-               lastA = a;
-
-               shooter.update();
-
-               telemetry.addData("Shooter", "running");
-               telemetry.update();
-
-           ii.spin(buttonPressed);
-
-           basicDrive.drive(forward, strafe, turn);
-           telemetry.addData("x", basicDrive.getPose().position.x);
-           telemetry.addData("y", basicDrive.getPose().position.y);
-           telemetry.update();
-
-           servo servo1 = new servo(hardwareMap);
-
-           servo1.spinServo(buttonServo);
-
-       }
-
-   }
-
-
-}
+            // Telemetry (one update per cycle)
+            telemetry.addData("Shooter", "running");
+            telemetry.addData("x", basicDrive.getPose().position.x);
+            telemetry.addData("y", basicDrive.getPose().position.y);
+            telemetry.update();
+        }
+    }
 }
