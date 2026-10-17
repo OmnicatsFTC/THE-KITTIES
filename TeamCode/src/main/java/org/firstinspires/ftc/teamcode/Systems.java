@@ -14,7 +14,6 @@ public class Systems extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        // Create everything ONCE, before the loop
         MecanumDrive mecanumDrive = new MecanumDrive(hardwareMap, new Pose2d(0, 0, 0));
         BasicDrive basicDrive = new BasicDrive(mecanumDrive);
         intakeIndexer ii = new intakeIndexer(hardwareMap);
@@ -26,7 +25,6 @@ public class Systems extends LinearOpMode {
         waitForStart();
 
         while (opModeIsActive()) {
-            // Read inputs fresh every cycle
             double forward = -gamepad1.left_stick_y;
             double strafe = gamepad1.left_stick_x;
             double turn = gamepad1.right_stick_x;
@@ -34,21 +32,18 @@ public class Systems extends LinearOpMode {
             boolean intakeButton = gamepad1.rightBumperWasPressed();
             boolean servoButton = gamepad1.leftBumperWasPressed();
 
-            // Shooter toggle on trigger press (not hold)
             boolean trigger = gamepad1.right_trigger > 0.5;
             if (trigger && !lastTrigger) {
                 shooter.toggle();
             }
             lastTrigger = trigger;
 
-            // Update subsystems
             basicDrive.update();
             basicDrive.drive(forward, strafe, turn);
             shooter.update();
             ii.spin(intakeButton);
             servo1.spinServo(servoButton);
 
-            // Telemetry (one update per cycle)
             telemetry.addData("Shooter", "running");
             telemetry.addData("x", basicDrive.getPose().position.x);
             telemetry.addData("y", basicDrive.getPose().position.y);
