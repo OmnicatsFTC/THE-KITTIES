@@ -9,7 +9,7 @@ public class intakeIndexer {
         private DcMotor indexer;
         private DcMotor intake;
 
-        boolean shooterFlag;
+        boolean indexerFlag;
         boolean intakeFlag;
 
 
@@ -27,9 +27,9 @@ public class intakeIndexer {
 
         public void spin(boolean buttonPressed) {
             if (buttonPressed) {
-                shooterFlag =!shooterFlag;
+                indexerFlag =!indexerFlag;
                 intakeFlag =!intakeFlag;
-                if (shooterFlag && intakeFlag) {
+                if (indexerFlag && intakeFlag) {
                     intake.setPower(1.0);   // full speed; lower it or use -1.0 to reverse
                     indexer.setPower(-1.0);
                 }

@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.subsystems.BasicDrive;
 import org.firstinspires.ftc.teamcode.subsystems.Shooter2;
 import org.firstinspires.ftc.teamcode.subsystems.intakeIndexer;
+import org.firstinspires.ftc.teamcode.subsystems.limelight;
 import org.firstinspires.ftc.teamcode.subsystems.servo;
 
 @TeleOp(name = "Systems", group = "testing")
@@ -19,6 +20,7 @@ public class Systems extends LinearOpMode {
         intakeIndexer ii = new intakeIndexer(hardwareMap);
         Shooter2 shooter = new Shooter2(hardwareMap);
         servo servo1 = new servo(hardwareMap);
+        limelight limelight1 = new limelight(hardwareMap);
 
         boolean lastTrigger = false;
 
@@ -31,6 +33,7 @@ public class Systems extends LinearOpMode {
 
             boolean intakeButton = gamepad1.rightBumperWasPressed();
             boolean servoButton = gamepad1.leftBumperWasPressed();
+            boolean buttonPressed3 = gamepad1.yWasPressed();
 
             boolean trigger = gamepad1.right_trigger > 0.5;
             if (trigger && !lastTrigger) {
@@ -43,6 +46,7 @@ public class Systems extends LinearOpMode {
             shooter.update();
             ii.spin(intakeButton);
             servo1.spinServo(servoButton);
+            limelight1.getAprilTag(buttonPressed3, turn);
 
 
             telemetry.addData("Shooter on", shooter.isOn());
