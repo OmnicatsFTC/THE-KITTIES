@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.subsystems.BasicDrive;
 import org.firstinspires.ftc.teamcode.MecanumDrive;
+import org.firstinspires.ftc.teamcode.subsystems.Shooter2;
 import org.firstinspires.ftc.teamcode.subsystems.intakeIndexer;
 import org.firstinspires.ftc.teamcode.subsystems.shooter;
 
@@ -21,7 +22,7 @@ public class Systems extends LinearOpMode {
 
        intakeIndexer ii = new intakeIndexer(hardwareMap);
 
-       shooter shoot = new shooter(hardwareMap);
+       //shooter shoot = new shooter(hardwareMap);
 
        waitForStart();
 
@@ -33,14 +34,31 @@ public class Systems extends LinearOpMode {
 
            boolean buttonPressed = gamepad1.aWasPressed();
            boolean buttonPressed3 = gamepad1.bWasPressed();
+           Shooter2 shooter = new Shooter2(hardwareMap);
 
+           boolean lastA = false;
+
+           waitForStart();
+
+           while (opModeIsActive()) {
+               // Toggle only on the moment A is pressed, not while it's held
+               boolean a = gamepad1.a;
+               if (a && !lastA) {
+                   shooter.toggle();
+               }
+               lastA = a;
+
+               shooter.update();
+
+               telemetry.addData("Shooter", "running");
+               telemetry.update();
            boolean triggerDown = gamepad1.left_trigger > 0.5;
-           if (triggerDown && !lastTriggerDown) {
-               shoot.toggle();
-           }
-           lastTriggerDown = triggerDown;
+           //if (triggerDown && !lastTriggerDown) {
+               //shoot.toggle();
+           //}
+           //lastTriggerDown = triggerDown;
 
-           shoot.update();
+           //shoot.update();
 
            ii.spin(buttonPressed);
 
@@ -54,4 +72,5 @@ public class Systems extends LinearOpMode {
    }
 
 
+}
 }

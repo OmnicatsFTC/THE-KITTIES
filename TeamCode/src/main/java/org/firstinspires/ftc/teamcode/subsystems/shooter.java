@@ -30,6 +30,19 @@ public class shooter {
 
             }
         }
+    private boolean on = false;
+
+    public void toggle() {
+        on = !on;
+    }
+
+    public void update() {
+        if (on) {
+            shooter.setPower(-0.79);
+        } else {
+            shooter.setPower(0);
+        }
+    }
     }
 
 
