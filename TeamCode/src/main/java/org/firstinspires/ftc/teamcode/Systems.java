@@ -43,6 +43,7 @@ public class Systems extends LinearOpMode {
             basicDrive.drive(forward, strafe, turn);
             shooter.spin(buttonPressed);
             ii.spin(intakeButton);
+            ii.outtake(gamepad1.xWasPressed());
             servo1.spinServo(servoButton);
             //limelight1.getAprilTag(buttonPressed3, turn);
 

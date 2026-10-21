@@ -40,6 +40,22 @@ public class intakeIndexer {
 
             }
         }
+
+        public void outtake(boolean outtakeButton){
+            if (outtakeButton) {
+                indexerFlag =!indexerFlag;
+                intakeFlag =!intakeFlag;
+                if (indexerFlag && intakeFlag) {
+                    intake.setPower(-1.0);   // full speed; lower it or use -1.0 to reverse
+                    indexer.setPower(1.0);
+                }
+                else{
+                    intake.setPower(0);
+                    indexer.setPower(0);
+                }
+
+            }
+        }
     }
 
 
