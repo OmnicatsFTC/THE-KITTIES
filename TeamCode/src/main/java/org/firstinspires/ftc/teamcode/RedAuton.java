@@ -17,8 +17,8 @@ public class RedAuton extends LinearOpMode {
     static final double SHOOT_Y = -63;
     static final double MIDPOINT_X = -24;       // short strafe left, stops before the flower
     static final double MIDPOINT_Y = -48;    // drive forward to here, then cut left
-    static final double PARK_X = -65;         // robot center; the left wall is at -72
-    static final double PARK_Y = 32;          // middle of the red loading zone
+    static final double PARK_X = -72;         // robot center; the left wall is at -72
+    static final double PARK_Y = 24;          // middle of the red loading zone
 
     @Override
     public void runOpMode() {

@@ -24,6 +24,7 @@ public class Systems extends LinearOpMode {
         //limelight limelight1 = new limelight(hardwareMap);
 
         boolean lastTrigger = false;
+        boolean allButtonFlag;
 
         waitForStart();
 
@@ -36,6 +37,7 @@ public class Systems extends LinearOpMode {
             boolean servoButton = gamepad1.leftBumperWasPressed();
             boolean buttonPressed3 = gamepad1.yWasPressed();
             boolean buttonPressed = gamepad1.rightTriggerWasPressed();
+            boolean allFlag = false;
 
 
 
@@ -50,6 +52,7 @@ public class Systems extends LinearOpMode {
             if (gamepad1.dpadDownWasPressed()){
                 shooter.decrement();
                 shooter.spin(true);
+
             }
 
             if (gamepad1.dpadUpWasPressed()){
@@ -59,10 +62,28 @@ public class Systems extends LinearOpMode {
 
 
 
+            if (gamepad1.aWasPressed()) {
+                ii.setiiPower(0);
+                shooter.setShooterPower(0.6);
+                sleep(1750);
+                servo1.setServoPower(1);
+            }
+
+            if (gamepad1.bWasPressed()){
+                ii.setiiPower(0);
+                shooter.setShooterPower(0);
+                servo1.setServoPower(0);
+            }
+
+            }
+
+
+
+
+
             telemetry.addData("x", basicDrive.getPose().position.x);
             telemetry.addData("y", basicDrive.getPose().position.y);
             telemetry.addData("shooter speed", shooter.getPower());
             telemetry.update();
         }
     }
-}

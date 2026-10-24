@@ -56,6 +56,11 @@ public class intakeIndexer {
 
             }
         }
+
+        public void setiiPower(double power){
+            intake.setPower(power);
+            indexer.setPower(power);
+        }
     }
 
 

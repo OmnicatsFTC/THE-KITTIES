@@ -29,4 +29,9 @@ public class servo {
 
         }
     }
+
+    public void setServoPower(double power){
+        servo.setPower(power);
+
+    }
 }

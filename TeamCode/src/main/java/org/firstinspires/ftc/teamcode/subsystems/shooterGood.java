@@ -10,7 +10,7 @@ public class shooterGood {
 
     boolean shooterFlag;
 
-    double motorPower = 0.7;
+    double motorPower = 0.6;
 
 
     public shooterGood(HardwareMap hardwareMap) {
@@ -47,6 +47,7 @@ public class shooterGood {
 
     public void increment(){
             motorPower += 0.05;
+
         }
 
     public void decrement(){

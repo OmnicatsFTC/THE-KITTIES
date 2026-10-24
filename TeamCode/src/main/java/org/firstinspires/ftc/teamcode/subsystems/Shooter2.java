@@ -10,7 +10,7 @@ public class Shooter2 {
     private final DcMotor rightMotor;
 
     private boolean on = false;
-    private static final double SHOOT_POWER = 0.79;
+    private static final double SHOOT_POWER = 0.6;
 
     public Shooter2(HardwareMap hardwareMap) {
         // These names must match your Driver Station configuration exactly
