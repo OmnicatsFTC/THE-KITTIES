@@ -7,21 +7,22 @@ import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-@Autonomous(name = "BlueAuton")
-public class BlueAuton extends LinearOpMode {
+@Autonomous(name = "RedAuto")
+public class RedAuto extends LinearOpMode {
 
-    static final double START_X = 24;        // where you place the robot along the wall
-    static final double START_Y = 63;        // wall at -72 + half your robot length (measure yours)
+    static final double START_X = -24;        // where you place the robot along the wall
+    static final double START_Y = -63;        // wall at -72 + half your robot length (measure yours)
 
-
-    static final double MIDPOINT_X = 48;       // short strafe left, stops before the flower
-    static final double MIDPOINT_Y = 24;    // drive forward to here, then cut left
-    static final double PARK_X = 72;         // robot center; the left wall is at -72
-    static final double PARK_Y = -25;          // middle of the red loading zone
+    static final double SHOOT_X = -63;
+    static final double SHOOT_Y = -63;
+    static final double MIDPOINT_X = -24;       // short strafe left, stops before the flower
+    static final double MIDPOINT_Y = -48;    // drive forward to here, then cut left
+    static final double PARK_X = -72;         // robot center; the left wall is at -72
+    static final double PARK_Y = 24;          // middle of the red loading zone
 
     @Override
     public void runOpMode() {
-        Pose2d startPose = new Pose2d(START_X, START_Y, Math.toRadians(270));
+        Pose2d startPose = new Pose2d(START_X, START_Y, Math.toRadians(90));
         MecanumDrive drive = new MecanumDrive(hardwareMap, startPose);
 
         Action path = drive.actionBuilder(startPose)

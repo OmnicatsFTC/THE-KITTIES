@@ -7,7 +7,6 @@ import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.tel
 import com.qualcomm.hardware.limelightvision.LLResult;
 import com.qualcomm.hardware.limelightvision.LLResultTypes;
 import com.qualcomm.hardware.limelightvision.Limelight3A;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.Range;
 
@@ -19,7 +18,7 @@ import java.util.List;
 // Use Android Studio to Copy this Class, and Paste it into your team's code folder with a new name.
 // Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list
 
-public class limelight {
+public class Limelight {
 
     // Declare OpMode members for each of the 4 motors.
 
@@ -30,7 +29,7 @@ public class limelight {
     final double MAX_AUTO_TURN  = 0.3;
 
 
-    public limelight(HardwareMap hardwareMap) {
+    public Limelight(HardwareMap hardwareMap) {
 
 
 

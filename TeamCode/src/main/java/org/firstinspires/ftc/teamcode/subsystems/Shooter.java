@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.subsystems;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-public class shooterGood {
+public class Shooter {
 
     private DcMotor shooterLeft;
     private DcMotor shooterRight;
@@ -13,7 +13,7 @@ public class shooterGood {
     double motorPower = 0.6;
 
 
-    public shooterGood(HardwareMap hardwareMap) {
+    public Shooter(HardwareMap hardwareMap) {
         // "intakeMotor" must match the name in your Driver Station config
         shooterRight = hardwareMap.get(DcMotor.class, "shooterRight");
         shooterLeft = hardwareMap.get(DcMotor.class, "shooterLeft");
@@ -55,4 +55,3 @@ public class shooterGood {
     }
 
     }
-

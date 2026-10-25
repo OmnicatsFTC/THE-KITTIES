@@ -4,7 +4,7 @@ package org.firstinspires.ftc.teamcode.subsystems;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-public class intakeIndexer {
+public class IntakeIndexer {
 
         private DcMotor indexer;
         private DcMotor intake;
@@ -14,7 +14,7 @@ public class intakeIndexer {
 
 
 
-        public intakeIndexer(HardwareMap hardwareMap) {
+        public IntakeIndexer(HardwareMap hardwareMap) {
             // "intakeMotor" must match the name in your Driver Station config
             intake = hardwareMap.get(DcMotor.class, "intake");
             indexer = hardwareMap.get(DcMotor.class,"indexer");

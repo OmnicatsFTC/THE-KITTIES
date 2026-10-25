@@ -1,15 +1,14 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
 import com.qualcomm.robotcore.hardware.CRServo;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-public class servo {
+public class ServoIndexer {
 
     private CRServo servo;
     boolean servoFlag;
 
-    public servo(HardwareMap hardwareMap) {
+    public ServoIndexer(HardwareMap hardwareMap) {
         servo = hardwareMap.get(CRServo.class, "servo");
 
 

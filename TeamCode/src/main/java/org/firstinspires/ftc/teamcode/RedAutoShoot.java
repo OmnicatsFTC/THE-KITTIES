@@ -8,15 +8,14 @@ import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.acmerobotics.roadrunner.InstantAction;
 
-import org.firstinspires.ftc.teamcode.subsystems.intakeIndexer;
-import org.firstinspires.ftc.teamcode.subsystems.servo;
-import org.firstinspires.ftc.teamcode.subsystems.shooterGood;
+import org.firstinspires.ftc.teamcode.subsystems.IntakeIndexer;
+import org.firstinspires.ftc.teamcode.subsystems.ServoIndexer;
+import org.firstinspires.ftc.teamcode.subsystems.Shooter;
 
 
-@Autonomous(name = "redShootingAuto")
-public class redShootingAuto extends LinearOpMode {
+@Autonomous(name = "RedAutoShoot")
+public class RedAutoShoot extends LinearOpMode {
 
     static final double START_X = -24;        // where you place the robot along the wall
     static final double START_Y = -63;        // wall at -72 + half your robot length (measure yours)
@@ -34,9 +33,9 @@ public class redShootingAuto extends LinearOpMode {
     public void runOpMode() {
         Pose2d startPose = new Pose2d(START_X, START_Y, Math.toRadians(90));
         MecanumDrive drive = new MecanumDrive(hardwareMap, startPose);
-        shooterGood shooter = new shooterGood(hardwareMap);
-        intakeIndexer ii = new intakeIndexer(hardwareMap);
-        servo s = new servo(hardwareMap);
+        Shooter shooter = new Shooter(hardwareMap);
+        IntakeIndexer ii = new IntakeIndexer(hardwareMap);
+        ServoIndexer s = new ServoIndexer(hardwareMap);
 
 
         Action path = drive.actionBuilder(startPose)
