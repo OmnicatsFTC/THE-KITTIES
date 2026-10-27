@@ -15,8 +15,8 @@ public class Systems extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        MecanumDrive mecanumDrive = new MecanumDrive(hardwareMap, new Pose2d(0, 0, 0));
-        BasicDrive basicDrive = new BasicDrive(mecanumDrive);
+        MecanumDrive MecDrive = new MecanumDrive(hardwareMap, new Pose2d(0, 0, 0));
+        BasicDrive Drive = new BasicDrive(MecDrive);
         IntakeIndexer ii = new IntakeIndexer(hardwareMap);
         Shooter shoot = new Shooter(hardwareMap);
         ServoIndexer servo = new ServoIndexer(hardwareMap);
@@ -34,8 +34,8 @@ public class Systems extends LinearOpMode {
             boolean AlignButton = gamepad1.yWasPressed();
             boolean ShooterButton = gamepad1.rightTriggerWasPressed();
 
-            basicDrive.update();
-            basicDrive.drive(forward, strafe, turn);
+            Drive.update();
+            Drive.drive(forward, strafe, turn);
             shoot.spin(ShooterButton);
             ii.spin(IntakeButton);
             ii.outtake(gamepad1.xWasPressed());
@@ -67,8 +67,8 @@ public class Systems extends LinearOpMode {
 
             }
 
-            telemetry.addData("x", basicDrive.getPose().position.x);
-            telemetry.addData("y", basicDrive.getPose().position.y);
+            telemetry.addData("x", Drive.getPose().position.x);
+            telemetry.addData("y", Drive.getPose().position.y);
             telemetry.addData("shooter speed", shoot.getPower());
             telemetry.update();
         }
