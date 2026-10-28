@@ -30,7 +30,8 @@ public class Systems extends LinearOpMode {
             double turn = gamepad1.right_stick_x;
 
             boolean IntakeButton = gamepad1.rightBumperWasPressed();
-            boolean ServoButton = gamepad1.leftBumperWasPressed();
+            boolean CRServoButton = gamepad1.leftBumperWasPressed();
+            boolean servoButton = gamepad1.leftTriggerWasPressed();
             boolean AlignButton = gamepad1.yWasPressed();
             boolean ShooterButton = gamepad1.rightTriggerWasPressed();
 
@@ -39,7 +40,8 @@ public class Systems extends LinearOpMode {
             shoot.spin(ShooterButton);
             ii.spin(IntakeButton);
             ii.outtake(gamepad1.xWasPressed());
-            servo.spinServo(ServoButton);
+            servo.spinServo(CRServoButton);
+            servo.rotateServo(servoButton);
             //ll.getAprilTag(AlignButton, turn);
 
             if (gamepad1.dpadDownWasPressed()){
