@@ -12,13 +12,14 @@ public class ServoIndexer {
     boolean CRservoFlag;
     boolean servoFlag;
 
+    double angle = 0;
+
     public ServoIndexer(HardwareMap hardwareMap) {
         servo = hardwareMap.get(CRServo.class, "servo");
-        servo2 = hardwareMap.get(Servo.class,"servo2");
+        servo2 = hardwareMap.get(Servo.class, "servo2");
 
 
     }
-
 
 
     public void spinServo(boolean buttonCRServo) {
@@ -42,18 +43,38 @@ public class ServoIndexer {
             servoFlag = !servoFlag;
 
             if (servoFlag) {
-                servo2.setPosition(0.5);
+                servo2.setPosition(angle);
 
             } else {
-                servo.setPower(0);
+                servo2.setPosition(0);
 
             }
 
         }
     }
 
-    public void setServoPower(double power){
+    public void up() {
+        angle += 0.05;
+
+    }
+
+    public void down() {
+        angle -= 0.05;
+    }
+
+    public double getPosition(){
+        return angle;
+    }
+
+
+    public void setServoPower(double power) {
         servo.setPower(power);
 
     }
+
+    public void setServoAngle(double angle) {
+        servo2.setPosition(angle);
+
+    }
 }
+

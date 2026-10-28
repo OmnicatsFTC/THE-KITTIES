@@ -54,6 +54,16 @@ public class Systems extends LinearOpMode {
                 shoot.setShooterPower(shoot.getPower());
                 }
 
+            if (gamepad1.dpadLeftWasPressed()){
+                servo.down();
+                servo.setServoAngle(servo.getPosition());
+            }
+
+            if (gamepad1.dpadRightWasPressed()){
+                servo.up();
+                servo.setServoAngle(servo.getPosition());
+            }
+
             if (gamepad1.aWasPressed()) {
                 ii.setiiPower(0);
                 shoot.setShooterPower(0.6);
