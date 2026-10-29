@@ -14,7 +14,6 @@ public class Shooter {
 
 
     public Shooter(HardwareMap hardwareMap) {
-        // "intakeMotor" must match the name in your Driver Station config
         shooterRight = hardwareMap.get(DcMotor.class, "shooterRight");
         shooterLeft = hardwareMap.get(DcMotor.class, "shooterLeft");
 
