@@ -10,13 +10,13 @@ public class Shooter {
 
     boolean shooterFlag;
 
-    double motorPower = 0.6;
+    double motorPower = 0.8;
 
 
     public Shooter(HardwareMap hardwareMap) {
         shooterRight = hardwareMap.get(DcMotor.class, "shooterRight");
         shooterLeft = hardwareMap.get(DcMotor.class, "shooterLeft");
-
+        shooterRight.setDirection(DcMotor.Direction.REVERSE);
         shooterRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         shooterLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
