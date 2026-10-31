@@ -27,6 +27,7 @@ public class shooterPID {
         public shooterPID(HardwareMap hardwareMap) {
             shooterLeft = hardwareMap.get(DcMotorEx.class, "shooterLeft");
             shooterRight = hardwareMap.get(DcMotorEx.class, "shooterRight");
+            shooterRight.setDirection(DcMotor.Direction.REVERSE);
             battery = hardwareMap.voltageSensor.iterator().next();
 
 
