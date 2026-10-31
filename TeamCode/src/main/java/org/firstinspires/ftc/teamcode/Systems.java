@@ -55,6 +55,15 @@ public class Systems extends LinearOpMode {
                 shoot.spin(buttonPressed);
                 }
 
+            if (gamepad2.dpadUpWasPressed()){
+                shoot.kPDown();
+                shoot.spin(true);
+            }
+            if (gamepad2.dpadDownWasPressed()){
+                shoot.kPUp();
+                shoot.spin(true);
+            }
+
             if (gamepad1.dpadLeftWasPressed()){
                 servo.down();
                 servo.setServoAngle(servo.getPosition());

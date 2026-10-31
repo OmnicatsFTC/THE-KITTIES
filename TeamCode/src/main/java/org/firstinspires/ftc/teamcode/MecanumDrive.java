@@ -72,6 +72,8 @@ public final class MecanumDrive {
         public double lateralInPerTick = 0.001625718922602045;
         public double trackWidthTicks = 7282.3452889654545;
 
+        public double frontPowerScale = 0.75;
+
         // feedforward parameters (in tick units)
         public double kS = 0.6785260487771536;
         public double kV = 0.0003705059395027147;
@@ -265,10 +267,10 @@ public final class MecanumDrive {
             maxPowerMag = Math.max(maxPowerMag, power.value());
         }
 
-        leftFront.setPower(wheelVels.leftFront.get(0) / maxPowerMag);
+        leftFront.setPower(wheelVels.leftFront.get(0) / maxPowerMag * PARAMS.frontPowerScale);
         leftBack.setPower(wheelVels.leftBack.get(0) / maxPowerMag);
         rightBack.setPower(wheelVels.rightBack.get(0) / maxPowerMag);
-        rightFront.setPower(wheelVels.rightFront.get(0) / maxPowerMag);
+        rightFront.setPower(wheelVels.rightFront.get(0) / maxPowerMag * PARAMS.frontPowerScale);
     }
 
     public final class FollowTrajectoryAction implements Action {
