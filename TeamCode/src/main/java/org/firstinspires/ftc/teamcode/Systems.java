@@ -9,6 +9,7 @@ import org.firstinspires.ftc.teamcode.subsystems.IntakeIndexer;
 //import org.firstinspires.ftc.teamcode.subsystems.Limelight;
 import org.firstinspires.ftc.teamcode.subsystems.ServoIndexer;
 import org.firstinspires.ftc.teamcode.subsystems.Shooter;
+import org.firstinspires.ftc.teamcode.subsystems.shooterPID;
 
 @TeleOp(name = "Systems", group = "TeleOp")
 public class Systems extends LinearOpMode {
@@ -18,7 +19,7 @@ public class Systems extends LinearOpMode {
         MecanumDrive MecDrive = new MecanumDrive(hardwareMap, new Pose2d(0, 0, 0));
         BasicDrive Drive = new BasicDrive(MecDrive);
         IntakeIndexer ii = new IntakeIndexer(hardwareMap);
-        Shooter shoot = new Shooter(hardwareMap);
+        shooterPID shoot = new shooterPID(hardwareMap);
         ServoIndexer servo = new ServoIndexer(hardwareMap);
         //Limelight ll = new Limelight(hardwareMap);
 
@@ -33,11 +34,11 @@ public class Systems extends LinearOpMode {
             boolean CRServoButton = gamepad1.leftBumperWasPressed();
             boolean servoButton = gamepad1.leftTriggerWasPressed();
             boolean AlignButton = gamepad1.yWasPressed();
-            boolean ShooterButton = gamepad1.rightTriggerWasPressed();
+            boolean buttonPressed = gamepad1.rightTriggerWasPressed();
 
             Drive.update();
             Drive.drive(forward, strafe, turn);
-            shoot.spin(ShooterButton);
+            shoot.spin(buttonPressed);
             ii.spin(IntakeButton);
             ii.outtake(gamepad1.xWasPressed());
             servo.spinServo(CRServoButton);
@@ -51,7 +52,7 @@ public class Systems extends LinearOpMode {
 
             if (gamepad1.dpadUpWasPressed()){
                 shoot.increment();
-                shoot.setShooterPower(shoot.getPower());
+                shoot.spin(buttonPressed);
                 }
 
             if (gamepad1.dpadLeftWasPressed()){
@@ -64,7 +65,7 @@ public class Systems extends LinearOpMode {
                 servo.setServoAngle(servo.getPosition());
             }
 
-            if (gamepad1.aWasPressed()) {
+           /* if (gamepad1.aWasPressed()) {
                 ii.setiiPower(0);
                 shoot.setShooterPower(0.6);
                 sleep(1750);
@@ -75,7 +76,7 @@ public class Systems extends LinearOpMode {
                 ii.setiiPower(0);
                 shoot.setShooterPower(0);
                 servo.setServoPower(0);
-                }
+                } */
 
             }
 
