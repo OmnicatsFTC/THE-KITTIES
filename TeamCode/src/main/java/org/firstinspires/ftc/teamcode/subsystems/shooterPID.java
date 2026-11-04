@@ -1,10 +1,14 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
+
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
 import com.qualcomm.robotcore.util.Range;
+import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 public class shooterPID {
 
 
@@ -15,18 +19,20 @@ public class shooterPID {
 
 
         boolean shooterFlag = false;
-        double targetRPM = 3000;
+        double targetRPM = 3200;
         double power = 0;
 
 
         // TUNING: change these
-        public double kV = 0.000175;  // 1 / (RPM at full power)
-        public double kP = 0.001;     // raise for faster recovery, lower if it wobbles
+        public double kV = 0.00017775;  // 1 / (RPM at full power)
+        public double kP = 0.0009;// raise for faster recovery, lower if it wobbles
 
 
-        public shooterPID(HardwareMap hardwareMap) {
+
+    public shooterPID(HardwareMap hardwareMap) {
             shooterLeft = hardwareMap.get(DcMotorEx.class, "shooterLeft");
             shooterRight = hardwareMap.get(DcMotorEx.class, "shooterRight");
+            shooterRight.setDirection(DcMotor.Direction.REVERSE);
             battery = hardwareMap.voltageSensor.iterator().next();
 
 
@@ -53,6 +59,7 @@ public class shooterPID {
                 double error = targetRPM - getRPM();
                 power = (kV * targetRPM + kP * error) * (12.0 / battery.getVoltage());
                 power = Range.clip(power, 0, 1);
+
             } else {
                 power = 0;
             }

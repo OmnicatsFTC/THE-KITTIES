@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
+
 import com.acmerobotics.roadrunner.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -39,27 +41,29 @@ public class Systems extends LinearOpMode {
             Drive.update();
             Drive.drive(forward, strafe, turn);
             shoot.spin(buttonPressed);
+
             ii.spin(IntakeButton);
             ii.outtake(gamepad1.xWasPressed());
             servo.spinServo(CRServoButton);
             servo.rotateServo(servoButton);
             //ll.getAprilTag(AlignButton, turn);
 
-            if (gamepad1.dpadDownWasPressed()){
-                shoot.decrement();
-                shoot.spin(true);
-                }
+//            if (gamepad1.dpadDownWasPressed()){
+//                shoot.decrement();
+//                shoot.spin(true);
+//                }
+
+//            if (gamepad1.dpadUpWasPressed()){
+//                shoot.increment();
+//                shoot.spin(buttonPressed);
+//                }
+
 
             if (gamepad1.dpadUpWasPressed()){
-                shoot.increment();
-                shoot.spin(buttonPressed);
-                }
-
-            if (gamepad2.dpadUpWasPressed()){
                 shoot.kPDown();
                 shoot.spin(true);
             }
-            if (gamepad2.dpadDownWasPressed()){
+            if (gamepad1.dpadDownWasPressed()){
                 shoot.kPUp();
                 shoot.spin(true);
             }
@@ -86,12 +90,13 @@ public class Systems extends LinearOpMode {
                 shoot.setShooterPower(0);
                 servo.setServoPower(0);
                 } */
-
+            telemetry.addData("Actual RPM:", shoot.getRPM());
+            telemetry.update();
             }
 
-            telemetry.addData("x", Drive.getPose().position.x);
-            telemetry.addData("y", Drive.getPose().position.y);
-            telemetry.addData("shooter speed", shoot.getPower());
-            telemetry.update();
+//            telemetry.addData("x", Drive.getPose().position.x);
+//            telemetry.addData("y", Drive.getPose().position.y);
+//            telemetry.addData("shooter speed", shoot.getPower());
+
         }
     }
