@@ -24,8 +24,8 @@ public class BlueAutoShoot extends LinearOpMode {
     //static final double MIDPOINT_X = -12;       // short strafe left, stops before the flower
     //static final double MIDPOINT_Y = 24;// drive forward to here, then cut left
 
-    static final double MIDPOINT_X1 = 48;       // short strafe left, stops before the flower
-    static final double MIDPOINT_Y1 = 48;
+    static final double MIDPOINT_X1 = 12;       // short strafe left, stops before the flower
+    static final double MIDPOINT_Y1 = 63;
     static final double PARK_X = 72;         // robot center; the left wall is at -72
     static final double PARK_Y = -27;          // middle of the red loading zone
 

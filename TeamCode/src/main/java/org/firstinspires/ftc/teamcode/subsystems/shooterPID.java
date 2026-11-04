@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
+
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -65,6 +66,20 @@ public class shooterPID {
             }
             shooterLeft.setPower(power);
             shooterRight.setPower(power);
+        }
+
+        public void autonSpin(boolean spin){
+            if (spin) {
+                double error = targetRPM - getRPM();
+                power = (kV * targetRPM + kP * error) * (12.0 / battery.getVoltage());
+                power = Range.clip(power, 0, 1);
+                shooterLeft.setPower(power);
+                shooterRight.setPower(power);
+            }
+            else{
+                shooterLeft.setPower(0);
+                shooterRight.setPower(0);
+            }
         }
 
 
