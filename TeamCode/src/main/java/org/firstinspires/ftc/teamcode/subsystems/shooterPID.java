@@ -25,7 +25,7 @@ public class shooterPID {
 
         // TUNING: change these
         public double kV = 0.00017775;  // 1 / (RPM at full power)
-        public double kP = 0.0009;// raise for faster recovery, lower if it wobbles
+        public double kP = 0.001;// raise for faster recovery, lower if it wobbles
 
 
 
