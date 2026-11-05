@@ -19,7 +19,7 @@ public class shooterPID {
 
 
         boolean shooterFlag = false;
-        double targetRPM = 3200;
+        double targetRPM = 3230;
         double power = 0;
 
 
@@ -72,13 +72,13 @@ public class shooterPID {
                 double error = targetRPM - getRPM();
                 power = (kV * targetRPM + kP * error) * (12.0 / battery.getVoltage());
                 power = Range.clip(power, 0, 1);
-                shooterLeft.setPower(power);
-                shooterRight.setPower(power);
             }
             else{
                 shooterLeft.setPower(0);
                 shooterRight.setPower(0);
             }
+            shooterLeft.setPower(power);
+            shooterRight.setPower(power);
         }
 
 
