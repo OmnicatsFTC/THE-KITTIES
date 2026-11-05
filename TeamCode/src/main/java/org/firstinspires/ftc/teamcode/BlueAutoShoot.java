@@ -30,7 +30,7 @@ public class BlueAutoShoot extends LinearOpMode {
     static final double MIDPOINT_X1 = 12;       // short strafe left, stops before the flower
     static final double MIDPOINT_Y1 = 63;
     static final double PARK_X = 72;         // robot center; the left wall is at -72
-    static final double PARK_Y = -27;          // middle of the red loading zone
+    static final double PARK_Y = -36;          // middle of the red loading zone
 
     @Override
     public void runOpMode() {
@@ -56,8 +56,8 @@ public class BlueAutoShoot extends LinearOpMode {
         Action path = drive.actionBuilder(startPose)
                 .strafeTo(new Vector2d(MIDPOINT_X1, MIDPOINT_Y1))// diagonal to the midpoint
                 .stopAndAdd(new InstantAction(() -> spinning[0] = true))//.stopAndAdd(new InstantAction(() -> shooter.autonSpin(true)))
-                .waitSeconds(5)
-                .stopAndAdd(new InstantAction(() -> ii.setiiPower(1)))
+                .waitSeconds(4)
+                .stopAndAdd(new InstantAction(() -> ii.setiiPower(-1)))
                 .waitSeconds(2)
                 .stopAndAdd(new InstantAction(() -> s.setServoPower(1)))
                 .waitSeconds(2)
