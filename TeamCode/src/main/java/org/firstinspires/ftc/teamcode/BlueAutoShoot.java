@@ -3,7 +3,9 @@ package org.firstinspires.ftc.teamcode;
 
 import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.InstantAction;
+import com.acmerobotics.roadrunner.ParallelAction;
 import com.acmerobotics.roadrunner.Pose2d;
+import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -21,10 +23,14 @@ public class BlueAutoShoot extends LinearOpMode {
     static final double START_X = 24;        // where you place the robot along the wall
     static final double START_Y = 63;        // wall at -72 + half your robot length (measure yours)
 
+
+    //static final double MIDPOINT_X = -12;       // short strafe left, stops before the flower
+    //static final double MIDPOINT_Y = 24;// drive forward to here, then cut left
+
     static final double MIDPOINT_X1 = 12;       // short strafe left, stops before the flower
     static final double MIDPOINT_Y1 = 63;
     static final double PARK_X = 72;         // robot center; the left wall is at -72
-    static final double PARK_Y = -36;      // middle of the red loading zone
+    static final double PARK_Y = -27;          // middle of the red loading zone
 
     @Override
     public void runOpMode() {
@@ -33,27 +39,50 @@ public class BlueAutoShoot extends LinearOpMode {
         shooterPID shooter = new shooterPID(hardwareMap);
         IntakeIndexer ii = new IntakeIndexer(hardwareMap);
         ServoIndexer s = new ServoIndexer(hardwareMap);
+        boolean[] spinning = {false};
+        boolean[] finished = {false};
+
+        Action spinShooter = packet -> {
+            if (spinning[0]) {
+                shooter.autonSpin(true);
+                packet.put("Shooter RPM", shooter.getRPM());
+            }
+            return !finished[0];
+        };
+
+
 
 
         Action path = drive.actionBuilder(startPose)
                 .strafeTo(new Vector2d(MIDPOINT_X1, MIDPOINT_Y1))// diagonal to the midpoint
-                .stopAndAdd(new InstantAction(() -> shooter.autonSpin(true)))
-                .waitSeconds(4)
-                .stopAndAdd(new InstantAction(() -> ii.setiiPower(-1)))
+                .stopAndAdd(new InstantAction(() -> spinning[0] = true))//.stopAndAdd(new InstantAction(() -> shooter.autonSpin(true)))
+                .waitSeconds(5)
+                .stopAndAdd(new InstantAction(() -> ii.setiiPower(1)))
                 .waitSeconds(2)
                 .stopAndAdd(new InstantAction(() -> s.setServoPower(1)))
-                .waitSeconds(4)
+                .waitSeconds(2)
                 .stopAndAdd(new InstantAction(() -> s.setServoPower(0)))
-                .stopAndAdd(new InstantAction(() -> shooter.autonSpin(false)))
+                .stopAndAdd(new InstantAction(() -> {
+                    spinning[0] = false;
+                    shooter.autonSpin(false);
+                }))
                 .stopAndAdd(new InstantAction(() -> ii.setiiPower(0)))
-                .strafeTo(new Vector2d(48, 48))
                 .strafeTo(new Vector2d(PARK_X, PARK_Y))            // diagonal into the loading zone
                 .build();
 
         waitForStart();
         if (isStopRequested()) return;
 
-        Actions.runBlocking(path);
+        Actions.runBlocking(
+                new ParallelAction(
+                        new SequentialAction(
+                                path,
+                                new InstantAction(() -> finished[0] = true)
+                        ),
+                        spinShooter
+                )
+        );
+
     }
 
 }
