@@ -56,10 +56,15 @@ public class BlueAutoShoot extends LinearOpMode {
         Action path = drive.actionBuilder(startPose)
                 .strafeTo(new Vector2d(MIDPOINT_X1, MIDPOINT_Y1))// diagonal to the midpoint
                 .stopAndAdd(new InstantAction(() -> spinning[0] = true))//.stopAndAdd(new InstantAction(() -> shooter.autonSpin(true)))
-                .waitSeconds(4)
-                .stopAndAdd(new InstantAction(() -> s.setServoPower(1)))
+                .waitSeconds(3)
+                .stopAndAdd(new InstantAction(() -> {
+                    s.setServoPower(1);
+                    telemetry.addLine("SERVO STARTED");
+                    telemetry.update();
+                }))
                 .waitSeconds(1)
                 .stopAndAdd(new InstantAction(() -> ii.setiiPower(-1)))
+                .waitSeconds(3)
                 .stopAndAdd(new InstantAction(() -> {
                     spinning[0] = false;
                     shooter.autonSpin(false);
