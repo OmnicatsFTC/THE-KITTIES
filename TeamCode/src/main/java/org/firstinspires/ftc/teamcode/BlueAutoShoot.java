@@ -12,6 +12,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.subsystems.IntakeIndexer;
 import org.firstinspires.ftc.teamcode.subsystems.ServoIndexer;
 import org.firstinspires.ftc.teamcode.subsystems.Shooter;
+import org.firstinspires.ftc.teamcode.subsystems.shooterPID;
 
 
 @Autonomous(name = "BlueAutoShoot")
@@ -33,22 +34,22 @@ public class BlueAutoShoot extends LinearOpMode {
     public void runOpMode() {
         Pose2d startPose = new Pose2d(START_X, START_Y, Math.toRadians(270));
         MecanumDrive drive = new MecanumDrive(hardwareMap, startPose);
-        Shooter shooter = new Shooter(hardwareMap);
+        shooterPID shooter = new shooterPID(hardwareMap);
         IntakeIndexer ii = new IntakeIndexer(hardwareMap);
         ServoIndexer s = new ServoIndexer(hardwareMap);
 
 
         Action path = drive.actionBuilder(startPose)
                 .strafeTo(new Vector2d(MIDPOINT_X1, MIDPOINT_Y1))// diagonal to the midpoint
-                .stopAndAdd(new InstantAction(() -> shooter.setShooterPower(0.7)))
+                .stopAndAdd(new InstantAction(() -> shooter.autonSpin(true)))
                 .waitSeconds(5)
                 .stopAndAdd(new InstantAction(() -> ii.setiiPower(1)))
-                .waitSeconds(1)
-                .stopAndAdd(new InstantAction(() -> ii.setiiPower(0)))
+                .waitSeconds(2)
                 .stopAndAdd(new InstantAction(() -> s.setServoPower(1)))
-                .waitSeconds(1)
+                .waitSeconds(2)
                 .stopAndAdd(new InstantAction(() -> s.setServoPower(0)))
-                .stopAndAdd(new InstantAction(() -> shooter.setShooterPower(0)))
+                .stopAndAdd(new InstantAction(() -> shooter.autonSpin(false)))
+                .stopAndAdd(new InstantAction(() -> ii.setiiPower(0)))
                 .strafeTo(new Vector2d(PARK_X, PARK_Y))            // diagonal into the loading zone
                 .build();
 
