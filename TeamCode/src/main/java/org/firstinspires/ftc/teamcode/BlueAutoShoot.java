@@ -24,7 +24,7 @@ public class BlueAutoShoot extends LinearOpMode {
     static final double START_Y = 63;        // wall at -72 + half your robot length (measure yours)
     static final double MIDPOINT_X1 = 12;       // short strafe left, stops before the flower
     static final double MIDPOINT_Y1 = 63;
-    static final double PARK_X = 68;         // robot center; the left wall is at -72
+    static final double PARK_X = 67;         // robot center; the left wall is at -72
     static final double PARK_Y = -36;          // middle of the red loading zone
 
     @Override

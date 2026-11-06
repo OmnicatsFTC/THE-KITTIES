@@ -14,7 +14,7 @@ public class ServoIndexer {
     boolean CRservoFlag;
     boolean servoFlag;
 
-    double angle = 0;
+
 
     public ServoIndexer(HardwareMap hardwareMap) {
         servo = hardwareMap.get(CRServo.class, "servo");
@@ -46,30 +46,18 @@ public class ServoIndexer {
             servoFlag = !servoFlag;
 
             if (servoFlag) {
-                servo2.setPosition(angle);
-                servo1.setPosition(angle);
-
-            } else {
                 servo2.setPosition(0);
                 servo1.setPosition(0);
+
+            } else {
+                servo2.setPosition(50);
+                servo1.setPosition(50);
 
             }
 
         }
     }
 
-    public void up() {
-        angle += 0.05;
-
-    }
-
-    public void down() {
-        angle -= 0.05;
-    }
-
-    public double getPosition(){
-        return angle;
-    }
 
 
     public void setServoPower(double power) {

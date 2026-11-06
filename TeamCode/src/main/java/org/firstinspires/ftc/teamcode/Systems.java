@@ -34,9 +34,10 @@ public class Systems extends LinearOpMode {
 
             boolean IntakeButton = gamepad1.rightBumperWasPressed();
             boolean CRServoButton = gamepad1.leftBumperWasPressed();
-            boolean servoButton = gamepad1.leftTriggerWasPressed();
+            boolean servoButton = gamepad1.aWasPressed();
             boolean AlignButton = gamepad1.yWasPressed();
             boolean buttonPressed = gamepad1.rightTriggerWasPressed();
+
 
             Drive.update();
             Drive.drive(forward, strafe, turn);
@@ -68,15 +69,8 @@ public class Systems extends LinearOpMode {
                 shoot.spin(true);
             }
 
-            if (gamepad1.dpadLeftWasPressed()){
-                servo.down();
-                servo.setServoAngle(servo.getPosition());
-            }
 
-            if (gamepad1.dpadRightWasPressed()){
-                servo.up();
-                servo.setServoAngle(servo.getPosition());
-            }
+
 
            /* if (gamepad1.aWasPressed()) {
                 ii.setiiPower(0);
