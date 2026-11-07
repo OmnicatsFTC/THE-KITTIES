@@ -46,8 +46,8 @@ public class ServoIndexer {
             servoFlag = !servoFlag;
 
             if (servoFlag) {
-                servo2.setPosition(1);
-                servo1.setPosition(1);
+                servo2.setPosition(0.95);
+                servo1.setPosition(0.95);
 
             } else {
                 servo2.setPosition(0.45);

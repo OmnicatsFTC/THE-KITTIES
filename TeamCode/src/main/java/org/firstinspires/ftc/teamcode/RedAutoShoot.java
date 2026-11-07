@@ -51,7 +51,7 @@ public class RedAutoShoot extends LinearOpMode {
         Action path = drive.actionBuilder(startPose)
                 .strafeTo(new Vector2d(MIDPOINT_X1, MIDPOINT_Y1))// diagonal to the midpoint
                 .stopAndAdd(new InstantAction(() -> spinning[0] = true))//.stopAndAdd(new InstantAction(() -> shooter.autonSpin(true)))
-                .waitSeconds(2)
+                .waitSeconds(3)
                 .stopAndAdd(new InstantAction(() -> {
                     s.setServoPower(1);
                     telemetry.addLine("SERVO STARTED");
@@ -65,7 +65,7 @@ public class RedAutoShoot extends LinearOpMode {
                 }))
                 .stopAndAdd(new InstantAction(() -> s.setServoPower(0)))
                 .stopAndAdd(new InstantAction(() -> ii.setiiPower(0)))
-                .strafeTo(new Vector2d(-48, -48))
+                .strafeTo(new Vector2d(-36, -48))
                 .strafeTo(new Vector2d(PARK_X, PARK_Y))
                 .build();
 
