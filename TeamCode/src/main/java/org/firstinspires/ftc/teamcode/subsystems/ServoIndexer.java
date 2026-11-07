@@ -21,7 +21,7 @@ public class ServoIndexer {
         servo2 = hardwareMap.get(Servo.class, "servo2");
         servo1 = hardwareMap.get(Servo.class, "servo1");
 
-
+        servo1.setDirection(Servo.Direction.REVERSE);
     }
 
 
@@ -46,12 +46,12 @@ public class ServoIndexer {
             servoFlag = !servoFlag;
 
             if (servoFlag) {
-                servo2.setPosition(0);
-                servo1.setPosition(0);
+                servo2.setPosition(1);
+                servo1.setPosition(1);
 
             } else {
-                servo2.setPosition(50);
-                servo1.setPosition(50);
+                servo2.setPosition(0.45);
+                servo1.setPosition(0.45);
 
             }
 
