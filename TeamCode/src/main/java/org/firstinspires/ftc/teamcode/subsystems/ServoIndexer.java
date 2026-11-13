@@ -33,7 +33,7 @@ public class ServoIndexer {
                 servo.setPower(1.0);
 
             } else {
-                servo.setPower(0);
+                servo.setPower(-1.0);
 
             }
 
