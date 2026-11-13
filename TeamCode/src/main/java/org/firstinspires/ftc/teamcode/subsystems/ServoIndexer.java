@@ -58,6 +58,11 @@ public class ServoIndexer {
         }
     }
 
+    public void rotateServo(double angle){
+        servo1.setPosition(angle);
+        servo2.setPosition(angle);
+    }
+
 
 
     public void setServoPower(double power) {
