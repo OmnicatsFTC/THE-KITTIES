@@ -9,6 +9,7 @@ import com.qualcomm.hardware.limelightvision.LLResultTypes;
 import com.qualcomm.hardware.limelightvision.Limelight3A;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.Range;
+import java.util.Set;
 
 import java.util.List;
 
@@ -29,6 +30,8 @@ public class Limelight {
     final double MAX_AUTO_TURN  = 0.3;
 
 
+
+
     public Limelight(HardwareMap hardwareMap) {
 
 
@@ -40,7 +43,7 @@ public class Limelight {
 
 
     }
-    public void getAprilTag(boolean buttonPressed3, double turn){
+    public void getAprilTag(boolean buttonPressed3, double turn) {
         boolean targetFound = false;
 
         LLResult result = limelight.getLatestResult();
@@ -64,18 +67,15 @@ public class Limelight {
             }
         }
 
-        public void getResult() {
-            LLResult result = limelight.getLatestResult();
-        }
 
         // Tell the driver what we see, and what to do.
         if (targetFound) {
-            telemetry.addData("\n>","HOLD Left-Bumper to Align to Target\n");
+            telemetry.addData("\n>", "HOLD Left-Bumper to Align to Target\n");
             telemetry.addData("Found Tag ID", desiredTag.getFiducialId());
             telemetry.addData("Target X (tx)", desiredTag.getTargetXDegrees());
             telemetry.addData("Target Y (ty)", desiredTag.getTargetYDegrees());
         } else {
-            telemetry.addData("\n>","Drive using joysticks to find valid target\n");
+            telemetry.addData("\n>", "Drive using joysticks to find valid target\n");
         }
 
         // If Left Bumper is being pressed, AND we have found the desired target, turn to align to it automatically.
@@ -92,7 +92,22 @@ public class Limelight {
                     -MAX_AUTO_TURN,
                     MAX_AUTO_TURN
             );
+        }
     }
+
+        public boolean seesAny(Set<Integer> ids) {
+            LLResult result2 = limelight.getLatestResult();
+            if (result2 == null || !result2.isValid()) return false;
+
+            for (LLResultTypes.FiducialResult tag : result2.getFiducialResults()) {
+                if (ids.contains(tag.getFiducialId())) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+
 
         // ########################################################################################
         // !!!            IMPORTANT Drive Information. Test your motor directions.            !!!!!
@@ -144,5 +159,5 @@ public class Limelight {
 
             // Send calculated power to wheels
 
-        }
+
 

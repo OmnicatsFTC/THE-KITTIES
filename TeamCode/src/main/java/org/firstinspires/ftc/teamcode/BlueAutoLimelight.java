@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.InstantAction;
+import com.acmerobotics.roadrunner.NullAction;
 import com.acmerobotics.roadrunner.ParallelAction;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.SequentialAction;
@@ -17,6 +18,11 @@ import org.firstinspires.ftc.teamcode.subsystems.Limelight;
 import org.firstinspires.ftc.teamcode.subsystems.ServoIndexer;
 import org.firstinspires.ftc.teamcode.subsystems.shooterPID;
 
+import java.util.Set;
+import java.util.function.Supplier;
+import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
+
+
 
 @Autonomous(name = "BlueAutoLimelight")
 public class BlueAutoLimelight extends LinearOpMode {
@@ -26,7 +32,9 @@ public class BlueAutoLimelight extends LinearOpMode {
     static final double MIDPOINT_X1 = 12;       // short strafe left, stops before the flower
     static final double MIDPOINT_Y1 = 63;
     static final double PARK_X = 63;         // robot center; the left wall is at -72
-    static final double PARK_Y = -36;          // middle of the red loading zone
+    static final double PARK_Y = -36;
+    static final Set<Integer> PATH1_TAGS = Set.of(45, 44, 43,42);// middle of the red loading zone
+
 
     @Override
     public void runOpMode() {
@@ -39,6 +47,8 @@ public class BlueAutoLimelight extends LinearOpMode {
         boolean[] spinning = {false};
         boolean[] finished = {false};
 
+
+
         Action spinShooter = packet -> {
             if (spinning[0]) {
                 shooter.autonSpin(true);
@@ -46,11 +56,14 @@ public class BlueAutoLimelight extends LinearOpMode {
             }
             return !finished[0];
         };
-        Action shootAction = new SequentialAction(
-                new InstantAction(() -> s.setServoPower(1)),
+        Supplier<Action> shoot= () -> new SequentialAction(
                 new InstantAction(() -> spinning[0] = true),
+                new SleepAction(3),
+                new InstantAction(() -> ii.setiiPower(1)),
+                new InstantAction(() -> s.setServoPower(1)),
                 new SleepAction(2),
                 new InstantAction(() -> s.setServoPower(0)),
+                new InstantAction(() -> ii.setiiPower(0)),
                 new InstantAction(() -> {
                     spinning[0] = false;
                     shooter.autonSpin(false);
@@ -68,16 +81,16 @@ public class BlueAutoLimelight extends LinearOpMode {
                         new Vector2d(12,63),
                         Math.toRadians(270)
                 )
-                .stopAndAdd(shootAction)
+                .stopAndAdd(shoot.get())
                 .strafeTo(new Vector2d(48, -24))
                 .stopAndAdd(new InstantAction(() -> ii.setiiPower(1)))
                 .strafeTo(new Vector2d(24, -63))
-                .stopAndAdd(shootAction)
+                .stopAndAdd(shoot.get())
                 .strafeTo(new Vector2d(63, -36))
                 .build();
 
 
-        Action conditional2 = drive.actionBuilder(drive.localizer.getPose())
+        Action conditional2 = drive.actionBuilder(startPose)
                 .turn(Math.toRadians(180))
                 .stopAndAdd(new InstantAction(() -> s.rotateServo(0.95)))
                 .strafeTo(new Vector2d(63, 24))
@@ -88,20 +101,39 @@ public class BlueAutoLimelight extends LinearOpMode {
                         new Vector2d(12,-63),
                         Math.toRadians(90)
                 )
-                .stopAndAdd(shootAction)
+                .stopAndAdd(shoot.get())
                 .stopAndAdd(new InstantAction(() -> s.rotateServo(0.95)))
                 .splineTo(new Vector2d(24,-63),Math.toRadians(270))
                 .stopAndAdd(new InstantAction(() -> ii.setiiPower(1)))
                 .waitSeconds(2)
                 .stopAndAdd(new InstantAction(() -> ii.setiiPower(0)))
                 .splineTo(new Vector2d(12,-63), Math.toRadians(90))
-                .stopAndAdd(shootAction)
+                .stopAndAdd(shoot.get())
                 .splineTo(new Vector2d(63,-36), Math.toRadians(180))
                 .build();
 
+        Action chooseByTag = new Action() {
+            Action chosen = null;
 
+            @Override
+            public boolean run(TelemetryPacket packet) {
+                if (chosen == null) {
+                    boolean sawTag = l.seesAny(PATH1_TAGS);
+                    packet.put("Saw tag", sawTag);
+                    chosen = sawTag ? conditional1 : conditional2;
+                }
+                return chosen.run(packet);
+            }
+        };
 
         Action path = drive.actionBuilder(startPose)
+                .stopAndAdd(new InstantAction(() -> ii.setiiPower(1)))
+                .waitSeconds(2)
+                .stopAndAdd(shoot.get())
+                .stopAndAdd(new InstantAction(() -> ii.setiiPower(0)))
+                .stopAndAdd(chooseByTag)
+
+
 
                 .build();
 
