@@ -64,6 +64,10 @@ public class Limelight {
             }
         }
 
+        public void getResult() {
+            LLResult result = limelight.getLatestResult();
+        }
+
         // Tell the driver what we see, and what to do.
         if (targetFound) {
             telemetry.addData("\n>","HOLD Left-Bumper to Align to Target\n");
