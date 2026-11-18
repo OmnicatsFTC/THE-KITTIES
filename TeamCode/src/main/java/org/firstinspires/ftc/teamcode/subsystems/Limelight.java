@@ -87,7 +87,7 @@ public class Limelight {
             // If the robot turns the wrong way when you test this, flip this sign.
             double tx = desiredTag.getTargetXDegrees();
 
-            turn = Range.clip(
+             turn = Range.clip(
                     -tx * TURN_GAIN,
                     -MAX_AUTO_TURN,
                     MAX_AUTO_TURN
