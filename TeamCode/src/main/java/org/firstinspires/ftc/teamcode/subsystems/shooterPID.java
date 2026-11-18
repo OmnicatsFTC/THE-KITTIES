@@ -102,6 +102,10 @@ public class shooterPID {
 
         public double getTargetRPM() { return targetRPM; }
         public double getPower()     { return power; }
+
+
+
+
     }
 
 
