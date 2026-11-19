@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
+
 
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -17,7 +17,7 @@ public class ServoIndexer {
     boolean CRservoFlag;
     boolean servoFlag;
 
-    IntakeIndexer ii = new IntakeIndexer(hardwareMap);
+    private IntakeIndexer ii;
 
 
 
@@ -27,6 +27,7 @@ public class ServoIndexer {
         servo = hardwareMap.get(CRServo.class, "servo");
         servo2 = hardwareMap.get(Servo.class, "servo2");
         servo1 = hardwareMap.get(Servo.class, "servo1");
+        ii = new IntakeIndexer(hardwareMap);
 
         servo1.setDirection(Servo.Direction.REVERSE);
     }
@@ -58,14 +59,14 @@ public class ServoIndexer {
                 servo2.setPosition(0.95);
                 servo1.setPosition(0.95);
                 ii.setiiPower(1.0);
-                servo.setPower(-1.0);
+                servo.setPower(1.0);
 
 
             } else {
                 servo2.setPosition(0.45);
                 servo1.setPosition(0.45);
                 ii.setiiPower(0);
-                servo.setPower(1.0);
+                servo.setPower(-1.0);
 
             }
 

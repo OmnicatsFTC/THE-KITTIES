@@ -19,13 +19,13 @@ public class shooterPID {
 
 
         boolean shooterFlag = false;
-        double targetRPM = 3230;
+        double targetRPM = 2100;
         double power = 0;
 
 
         // TUNING: change these
         public double kV = 0.00017775;  // 1 / (RPM at full power)
-        public double kP = 0.001;// raise for faster recovery, lower if it wobbles
+        public double kP = 0.000175;// raise for faster recovery, lower if it wobbles
 
 
 

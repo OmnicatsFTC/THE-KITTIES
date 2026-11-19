@@ -44,10 +44,7 @@ public class Systems extends LinearOpMode {
             Drive.drive(forward, strafe, turn);
 
             shoot.spin(buttonPressed);
-            if (shoot.isReady()){
-                ii.setiiPower(1);
-                servo.setServoPower(1);
-            }
+
 
 
 
