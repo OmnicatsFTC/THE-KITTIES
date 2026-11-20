@@ -58,10 +58,10 @@ public class BlueAutoLimelight extends LinearOpMode {
         };
         Supplier<Action> shoot= () -> new SequentialAction(
                 new InstantAction(() -> spinning[0] = true),
-                new SleepAction(3),
-                new InstantAction(() -> ii.setiiPower(1)),
+                new SleepAction(3.5),
+                new InstantAction(() -> ii.setiiPower(-1)),
                 new InstantAction(() -> s.setServoPower(1)),
-                new SleepAction(2),
+                new SleepAction(4),
                 new InstantAction(() -> s.setServoPower(0)),
                 new InstantAction(() -> ii.setiiPower(0)),
                 new InstantAction(() -> {
@@ -74,7 +74,7 @@ public class BlueAutoLimelight extends LinearOpMode {
                 .turn(Math.toRadians(180))
                 .stopAndAdd(new InstantAction(() -> s.rotateServo(0.95)))
                 .strafeTo(new Vector2d(63, 24))
-                .stopAndAdd(new InstantAction(() -> ii.setiiPower(1)))
+                .stopAndAdd(new InstantAction(() -> ii.setiiPower(-1)))
                 .waitSeconds(2)
                 .stopAndAdd(new InstantAction(() -> ii.setiiPower(0)))
                 .strafeToLinearHeading(
@@ -83,7 +83,7 @@ public class BlueAutoLimelight extends LinearOpMode {
                 )
                 .stopAndAdd(shoot.get())
                 .strafeTo(new Vector2d(48, -24))
-                .stopAndAdd(new InstantAction(() -> ii.setiiPower(1)))
+                .stopAndAdd(new InstantAction(() -> ii.setiiPower(-1)))
                 .strafeTo(new Vector2d(24, -63))
                 .stopAndAdd(shoot.get())
                 .strafeTo(new Vector2d(63, -36))
@@ -94,7 +94,7 @@ public class BlueAutoLimelight extends LinearOpMode {
                 .turn(Math.toRadians(180))
                 .stopAndAdd(new InstantAction(() -> s.rotateServo(0.95)))
                 .strafeTo(new Vector2d(63, 24))
-                .stopAndAdd(new InstantAction(() -> ii.setiiPower(1)))
+                .stopAndAdd(new InstantAction(() -> ii.setiiPower(-1)))
                 .waitSeconds(2)
                 .stopAndAdd(new InstantAction(() -> ii.setiiPower(0)))
                 .strafeToLinearHeading(
@@ -104,7 +104,7 @@ public class BlueAutoLimelight extends LinearOpMode {
                 .stopAndAdd(shoot.get())
                 .stopAndAdd(new InstantAction(() -> s.rotateServo(0.95)))
                 .splineTo(new Vector2d(24,-63),Math.toRadians(270))
-                .stopAndAdd(new InstantAction(() -> ii.setiiPower(1)))
+                .stopAndAdd(new InstantAction(() -> ii.setiiPower(-1)))
                 .waitSeconds(2)
                 .stopAndAdd(new InstantAction(() -> ii.setiiPower(0)))
                 .splineTo(new Vector2d(12,-63), Math.toRadians(90))
@@ -127,7 +127,7 @@ public class BlueAutoLimelight extends LinearOpMode {
         };
 
         Action path = drive.actionBuilder(startPose)
-                .stopAndAdd(new InstantAction(() -> ii.setiiPower(1)))
+                .stopAndAdd(new InstantAction(() -> s.setServoPower(-1)))
                 .waitSeconds(2)
                 .stopAndAdd(shoot.get())
                 .stopAndAdd(new InstantAction(() -> ii.setiiPower(0)))
